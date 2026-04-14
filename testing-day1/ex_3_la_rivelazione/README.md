@@ -17,11 +17,11 @@ python -m venv venv
 source venv/bin/activate
 
 # Windows (PowerShell)
-.venv\Scripts\Activate.ps1
+.\venv\Scripts\Activate.ps1
 
 ```
 
-1. Assicurati di aver installato pytest: `pip install -r ../requirements.txt`
+1. Assicurati di aver installato pytest: `pip install -r requirements.txt`
 2. **NON guardare il file `banca.py`**.
 3. Non modificare i test in `test_banca.py`. I test rappresentano la "Verità Assoluta" (i requisiti di business)
 4. Apri il terminale: `pytest test_banca.py -v`
