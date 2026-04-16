@@ -13,7 +13,7 @@ def valida_password(password: str) -> bool:
         raise ValueError("La password deve essere lunga almeno 8 caratteri.")
     elif not any(n.isnumeric() for n in password):
         raise ValueError("La password deve contenere almeno un numero.")
-    elif password.islower():
+    elif not any(c.isupper() for c in password):
         raise ValueError("La password deve contenere almeno una maiuscola.")
 
     return True
