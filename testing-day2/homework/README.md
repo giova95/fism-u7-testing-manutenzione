@@ -24,3 +24,11 @@ Se hai finito i Livelli 1 e 2 in 20 minuti, il tuo codice probabilmente non scal
 
 1. **Parametrizzazione:** Usa `@pytest.mark.parametrize` per testare almeno 15 password invalide diverse con un singolo blocco di codice di test.
 2. **Fixtures:** Crea un modulo che legge una lista di "password compromesse" da un file `blacklist.txt`. Scrivi una `pytest.fixture` che carichi questo file in memoria una sola volta prima di eseguire tutti i test, simulando un controllo contro un database reale.
+
+---
+
+## Istruzioni per la consegna
+1. Dopo esservi assicurati che il programma funziona correttamente, scrivere il file requirements.txt con tutte le dipendenze necessarie a far funzionare il programma
+2. Eliminare la cartella dove avete il virtual environment Python
+3. Archiviare in .zip la cartella con il vostro programma, i test e il file dei requirements: potete usare winrar, winzip, 7zip, ... oppure direttamente dal terminale :)
+4. Inviare lo zip alla mail angeligiovanni21@gmail.com
