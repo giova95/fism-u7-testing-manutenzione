@@ -1,6 +1,6 @@
-# LAB 2 — Accessibilità: è nel lab del pomeriggio
+# LAB 2 — Accessibilità: è dentro il Lab 1
 
-> **Questo lab non è separato.** L'accessibilità oggi la fate **dentro** il lab del pomeriggio, perché nasce dallo stesso test: [`lab1_primo_e2e/README.md`](../lab1_primo_e2e/README.md).
+> **Questo lab non è separato.** L'accessibilità oggi la fate **dentro** il Lab 1, perché nasce dallo stesso test: [`lab1_primo_e2e/README.md`](../lab1_primo_e2e/README.md).
 
 Dove trovate le parti di accessibilità:
 

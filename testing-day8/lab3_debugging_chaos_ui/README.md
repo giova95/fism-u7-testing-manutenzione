@@ -1,13 +1,13 @@
 # LAB 3 — Debugging e chaos lato browser
 
 > **Facoltativo: in aula non lo facciamo.** È un esercizio in più per chi ha finito il compito e vuole andare avanti (Livello 3 del compito, `homework/README.md`).
-> Prima di iniziare vi servono: il Lab 3 di martedì finito (il checkout che risponde `503` quando il corriere è giù), l'HTML corretto del lab del pomeriggio e il Page Object (`pagina_bottega.py`, Livello 2 di [`lab1_primo_e2e`](../lab1_primo_e2e/README.md)). Gli strumenti nuovi (`page.route`, Trace Viewer) sono spiegati qui sotto e nella documentazione in fondo.
+> Prima di iniziare vi servono: il Lab 3 della G1 finito (il checkout che risponde `503` quando il corriere è giù), l'HTML corretto del Lab 1 e il Page Object (`pagina_bottega.py`, Livello 2 di [`lab1_primo_e2e`](../lab1_primo_e2e/README.md)). Gli strumenti nuovi (`page.route`, Trace Viewer) sono spiegati qui sotto e nella documentazione in fondo.
 
 > 📖 **Parole da sapere per questo lab** (spiegate con esempi in [`CONCETTI_BASE.md`](../../CONCETTI_BASE.md)): [frontend e backend](../../CONCETTI_BASE.md#frontend-e-backend) · [status code](../../CONCETTI_BASE.md#status-code) · [timeout](../../CONCETTI_BASE.md#timeout) · [mock](../../CONCETTI_BASE.md#mock)
 
 ## Contesto
 
-Con il Lab 3 di martedì avete reso **robusto il backend**: se SpediVeloce è giù, la Bottega risponde `503` in 3 secondi invece di esplodere. Ora fate questa prova: spegnete `corriere.py`, aprite la Bottega nel browser e comprate qualcosa.
+Con il Lab 3 della G1 avete reso **robusto il backend**: se SpediVeloce è giù, la Bottega risponde `503` in 3 secondi invece di esplodere. Ora fate questa prova: spegnete `corriere.py`, aprite la Bottega nel browser e comprate qualcosa.
 
 Il backend risponde un `503` perfetto, da manuale. E il cliente cosa vede? **Niente.** Nessun messaggio, il bottone non fa niente, il carrello è ancora pieno. L'ordine è passato o no? Il cliente riclicca, oppure chiama il servizio clienti, oppure va su Amazon.
 
@@ -91,7 +91,7 @@ Oggi rompiamo la rete **del browser**, in modo controllato, con `page.route()`:
 
 ## Livello 2: Ingegneria (standard)
 
-1. **Un solo punto per gli errori.** Se mettete un `try/catch` copiato in ogni funzione, state ripetendo l'errore architetturale che nel compito di martedì era vietato nel backend. Scrivete in `app.js` **una** funzione `chiamaApi(url, opzioni)` che:
+1. **Un solo punto per gli errori.** Se mettete un `try/catch` copiato in ogni funzione, state ripetendo l'errore architetturale che nei compiti precedenti era vietato nel backend. Scrivete in `app.js` **una** funzione `chiamaApi(url, opzioni)` che:
    - chiama `fetch` e trasforma un errore di rete in un errore leggibile;
    - **controlla `risposta.ok`**: `fetch` NON considera errori i `404` o i `500`, li dovete controllare voi;
    - restituisce i dati JSON o lancia un errore con lo status.

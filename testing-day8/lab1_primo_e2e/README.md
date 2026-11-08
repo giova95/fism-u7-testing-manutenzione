@@ -1,4 +1,4 @@
-# LAB DEL POMERIGGIO — Il primo test dal browser (e i bottoni che non esistono)
+# LAB 1 — Il primo test dal browser (e i bottoni che non esistono)
 
 > 📖 **Parole da sapere per questo lab** (spiegate con esempi in [`CONCETTI_BASE.md`](../../CONCETTI_BASE.md)): [HTML, CSS, JavaScript](../../CONCETTI_BASE.md#html-css-javascript) · [DOM](../../CONCETTI_BASE.md#dom) · [elemento, tag, attributo](../../CONCETTI_BASE.md#elemento-tag-attributo) · [locator](../../CONCETTI_BASE.md#selettore--locator) · [headless](../../CONCETTI_BASE.md#headless) · [fixture](../../CONCETTI_BASE.md#fixture-pytest) · [accessibilità](../../CONCETTI_BASE.md#accessibilità)
 
@@ -6,11 +6,11 @@
 
 ## Contesto
 
-Martedì e stamattina avete testato la Bottega **dal retro**: richieste HTTP dirette all'API, con `requests`. Il cliente vero però non manda JSON: apre un browser, scrive, clicca. Tra lui e l'API c'è un pezzo di codice che finora nessuno ha collaudato: il **frontend** (`static/index.html` e `static/app.js`).
+Finora avete testato la Bottega **dal retro**: richieste HTTP dirette all'API, con `requests`. Il cliente vero però non manda JSON: apre un browser, scrive, clicca. Tra lui e l'API c'è un pezzo di codice che finora nessuno ha collaudato: il **frontend** (`static/index.html` e `static/app.js`).
 
 Oggi il test lo fa un browser vero, comandato da Python con **Playwright**.
 
-| Martedì (API) | Oggi (browser) |
+| Finora (API) | Oggi (browser) |
 |---|---|
 | `requests.post(url, json=...)` | `page.get_by_role("button", name="Accedi").click()` |
 | `assert risposta.status_code == 201` | `expect(page.get_by_text("Ordine n. 1 confermato!")).to_be_visible()` |
@@ -19,10 +19,10 @@ Oggi il test lo fa un browser vero, comandato da Python con **Playwright**.
 
 C'è una seconda cosa che scoprirete. Playwright cerca gli elementi **come li cerca un lettore di schermo** (il programma che legge la pagina ad alta voce a chi non vede). Se il vostro test non trova il bottone "Aggiungi" per ruolo, non lo trova nemmeno chi usa la Bottega senza vedere lo schermo, e chi usa solo la tastiera non ci arriva. Dal 28 giugno 2025, con l'**European Accessibility Act** (in Italia D.Lgs. 82/2022), un negozio online per i consumatori deve essere accessibile: per la Bottega un difetto di accessibilità è un difetto di **conformità**, come un 500 sull'API.
 
-**File di partenza:** `testing-day7/lab1_primo_e2e/conftest.py` → copiatelo in `bottega/tests/e2e/conftest.py`
+**File di partenza:** `testing-day8/lab1_primo_e2e/conftest.py` → copiatelo in `bottega/tests/e2e/conftest.py`
 **File da creare:** `bottega/tests/e2e/test_acquisto.py`
 **File da modificare:** `bottega/static/index.html`, `bottega/static/app.js` (Livello 2 anche `bottega/static/style.css`)
-**Prerequisito:** corriere e app accesi, come stamattina. Playwright installato (`SETUP.md`).
+**Prerequisito:** corriere e app accesi, come per i test delle API. Playwright installato e `base_url` con `scope="session"` (`SETUP.md`, punto 2).
 
 ## Regole di ingaggio (Quality Gate del lab)
 
@@ -35,7 +35,7 @@ C'è una seconda cosa che scoprirete. Playwright cerca gli elementi **come li ce
 
 1. **Il conftest.** Create la cartella `bottega/tests/e2e/` e copiateci `conftest.py`. Leggetelo (5 minuti, non di più). Due cose da capire, non da imparare a memoria:
    - se la Bottega è già accesa, la fixture `server_bottega` la **riusa**; se è spenta, la accende lei e la spegne alla fine;
-   - `stato_pulito` è la fixture di stamattina: prima di ogni test il server torna pulito.
+   - `stato_pulito` è la fixture del Lab 2: prima di ogni test il server torna pulito.
 
 2. **Il primo segno di vita.** In `tests/e2e/test_acquisto.py`:
 

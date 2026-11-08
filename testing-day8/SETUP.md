@@ -1,26 +1,24 @@
-# SETUP — Giorno 7: il browser che si comanda da solo
+# SETUP — Giorno 8: il corriere, poi il browser
 
 > 📖 Una parola non vi è chiara? Cercatela in [`CONCETTI_BASE.md`](../CONCETTI_BASE.md), il dizionario del corso.
 
-> ⏰ **Stamattina si riparte dai lab di martedì**, con **corriere e app accesi** come martedì (punto 3 qui sotto):
-> - prima il **Livello 2 del Lab 2** ([`testing-day6/lab2_autenticazione/README.md`](../testing-day6/lab2_autenticazione/README.md)): stato verificato con una seconda chiamata, isolamento dei test, sad path del carrello;
-> - poi il **Lab 3** ([`testing-day6/lab3_dipendenze_esterne/README.md`](../testing-day6/lab3_dipendenze_esterne/README.md)): il corriere, il mock, il timeout.
+> ⏰ **Si riparte dal compito**: la prima parte della mattina correggiamo insieme il Lab 3 della G1 ([`testing-day6/lab3_dipendenze_esterne/README.md`](../testing-day6/lab3_dipendenze_esterne/README.md)): il mock del corriere, il timeout, l'eccezione di dominio. Servono **corriere e app accesi** (punto 3).
 >
-> Playwright serve dal pomeriggio. Se a casa **non** l'avete installato (era il Livello 0 del compito di martedì), lanciate **appena arrivati** i comandi del punto 2: il download è lungo e va avanti da solo mentre lavorate sui lab della mattina.
+> Poi passiamo al browser. Se a casa **non** avete installato Playwright, lanciate **appena arrivati** i comandi del punto 2: il download è lungo e va avanti da solo mentre correggiamo il compito.
 
-Oggi lavorate sullo **stesso repository** della Bottega di martedì.
+Oggi lavorate sullo **stesso repository** della Bottega.
 
 ## 1. Il punto di partenza
 
-**Avete consegnato il compito della G1?** Lavorate sul vostro repository, su un branch nuovo:
+Lavorate sul vostro repository, su un branch nuovo:
 
 ```bash
-git switch -c g2
+git switch -c g3
 ```
 
-**Il vostro `app.py` è ancora rotto?** Per la mattina non è un problema: i test rossi dei sad path sono proprio i bug del compito, e li riconoscerete. Per il pomeriggio, se preferite partire pulito, in `testing-day7/bottega_start/` c'è la Bottega con le correzioni della G1 già applicate (la pubblico la mattina della lezione: fate `git pull`). Copiatela **fuori** dalla cartella del corso, mettetela sotto Git come martedì e copiateci la vostra cartella `tests/` (le fixture di `tests/conftest.py` servono anche oggi).
+**Il vostro compito non è finito, o il codice è in disordine?** In `testing-day8/bottega_start/` c'è la Bottega con le correzioni dei Lab 1, 2 e 3 già applicate (la pubblico la mattina della lezione: fate `git pull`). Copiatela **fuori** dalla cartella del corso, mettetela sotto Git e copiateci la vostra cartella `tests/`.
 
-> In `bottega_start/` la correzione del corriere (`spedizioni.py` e il `503` nel checkout di `app.py`) **non** c'è: è l'esercizio del Lab 3 di stamattina. Dal pomeriggio si tocca **solo il frontend** (`static/`).
+> Il frontend (`static/`) in `bottega_start/` è quello **originale**, con i suoi difetti: oggi lo correggete voi.
 
 ## 2. Le dipendenze nuove
 
@@ -31,7 +29,17 @@ pip install pytest-playwright==0.10.0 playwright==1.64.1 axe-playwright-python==
 python -m playwright install chromium
 ```
 
-Aggiungete le tre righe a `requirements.txt` (le trovate già in `bottega_start/requirements.txt`). Se avete installato Playwright a casa, il primo comando allinea le versioni a quelle del corso e il secondo scarica il browser solo se manca.
+Aggiungete le tre righe a `requirements.txt` (le trovate già in `bottega_start/requirements.txt`).
+
+> ⚠️ **Prima di lanciare di nuovo i test delle API**, aprite `tests/conftest.py` e date alla fixture `base_url` lo scope di sessione:
+>
+> ```python
+> @pytest.fixture(scope="session")      # prima era solo @pytest.fixture
+> def base_url():
+>     return "http://localhost:8000"
+> ```
+>
+> Perché: `pytest-playwright` porta con sé un plugin che ha **già** una fixture `base_url` di sessione. Se la vostra è "per ogni test" (lo scope di default), pytest si rifiuta di mescolarle e **tutti** i test finiscono in `ERROR` con `ScopeMismatch`, anche quelli con il mock. Con `scope="session"` tutto torna verde. (Nelle soluzioni pubblicate è già così.) Se avete installato Playwright a casa, il primo comando allinea le versioni a quelle del corso e il secondo scarica il browser solo se manca.
 
 Verifica:
 
@@ -51,7 +59,7 @@ pytest tests/e2e --browser-channel msedge      # Microsoft Edge (preinstallato s
 
 Per non doverlo scrivere ogni volta, aggiungetelo in `pytest.ini`, alla riga `addopts`: `addopts = -m "not chaos" --browser-channel chrome`.
 
-## 3. Accendete il sistema (come martedì)
+## 3. Accendete il sistema
 
 Due terminali con il venv attivo, nella cartella `bottega/`:
 
@@ -60,11 +68,11 @@ Due terminali con il venv attivo, nella cartella `bottega/`:
 | 1 | `python corriere.py` |
 | 2 | `python app.py` |
 
-Aprite http://localhost:8000 e fate un acquisto a mano. Teneteli accesi tutto il giorno: servono ai test della mattina, al registratore (`codegen`) e alla pagina. I test del pomeriggio li riusano (se li trovano spenti, li accendono da soli).
+Aprite http://localhost:8000 e fate un acquisto a mano. Teneteli accesi tutto il giorno: servono ai test delle API, al registratore (`codegen`) e alla pagina. I test con il browser li riusano (se li trovano spenti, li accendono da soli).
 
 ## 4. Il primo segno di vita
 
-Nel terzo terminale (lo facciamo insieme all'inizio del pomeriggio):
+Nel terzo terminale (lo facciamo insieme quando passiamo al browser):
 
 ```bash
 python -m playwright codegen localhost:8000
@@ -77,6 +85,7 @@ Si aprono due finestre: un browser e il **Playwright Inspector**. Fate login e a
 | Sintomo | Causa | Soluzione |
 |---------|-------|-----------|
 | `Executable doesn't exist at .../ms-playwright/...` | Il browser non è stato scaricato, o è di un'altra versione di Playwright | `python -m playwright install chromium`, oppure il piano B |
+| `ScopeMismatch: You tried to access the function scoped fixture base_url with a session scoped request object` | La vostra `base_url` in `tests/conftest.py` non ha `scope="session"` | Il riquadro ⚠️ del punto 2 |
 | `fixture 'page' not found` | `pytest-playwright` non è installato in **questo** venv | `pip install pytest-playwright==0.10.0` con il venv attivo |
 | `playwright: command not found` | La cartella degli script del venv non è nel PATH | Usate sempre `python -m playwright ...` |
 | Su Linux / WSL: mancano librerie di sistema | Il browser ha bisogno di librerie che il sistema non ha | `python -m playwright install --with-deps chromium` |

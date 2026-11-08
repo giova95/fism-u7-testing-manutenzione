@@ -1,7 +1,7 @@
 """
 conftest.py dei test E2E.
 
-FILE DI PARTENZA del lab di oggi pomeriggio: copiatelo in bottega/tests/e2e/conftest.py
+FILE DI PARTENZA del lab sul browser: copiatelo in bottega/tests/e2e/conftest.py
 (la cartella tests/e2e/ la create voi).
 
 Due responsabilità, entrambe "Arrange scritto una volta sola" (G1):
@@ -96,7 +96,7 @@ def base_url(server_bottega):
 
 @pytest.fixture(autouse=True)
 def stato_pulito(base_url):
-    """La stessa fixture di stamattina (Lab 2 di martedì): prima di OGNI test il server torna pulito.
+    """La stessa fixture del Lab 2 della G1: prima di OGNI test il server torna pulito.
     Domanda: perché serve ancora, se ogni test ha già un browser nuovo e pulito?"""
     requests.post(f"{base_url}/api/reset", timeout=5)
 
