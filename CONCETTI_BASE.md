@@ -176,6 +176,14 @@ def costo_spedizione(cap: str, peso: float) -> float:   # cap e peso sono PARAME
 - **In una frase:** una funzione che **prepara qualcosa** per i test (un login, uno stato pulito) e lo consegna a chi lo chiede **per nome**.
 - **Come al ristorante:** la **mise en place**: prima del servizio si prepara tutto quello che serve, una volta sola, e ogni cuoco lo trova pronto.
 
+### Test isolato e test flaky
+- **In una frase:** un test è **isolato** se passa o fallisce sempre allo stesso modo, in qualunque ordine e quante volte lo lanciate. Se il risultato cambia da un'esecuzione all'altra, il test è **flaky** (ballerino).
+- **Come al ristorante:** ogni cuoco trova la postazione pulita. Se trova gli avanzi del collega, il suo piatto viene diverso ogni volta.
+- **La cura che usiamo:** la fixture `stato_pulito` con `autouse=True`, che prima di **ogni** test chiama `POST /api/reset`.
+
+### `parametrize`
+- **In una frase:** scrivere un test **una volta sola** e farlo girare su tanti casi (una tabella di input e risultati attesi). pytest mostra ogni caso come un test separato.
+
 ### Black box e white box
 - **White box:** guardo **dentro** il codice (import, mock, if). **Black box:** guardo solo **da fuori** (input → output), come farebbe un utente.
 
@@ -190,6 +198,13 @@ def costo_spedizione(cap: str, peso: float) -> float:   # cap e peso sono PARAME
 ### Timeout
 - **In una frase:** il **tempo massimo** che siamo disposti ad aspettare una risposta. Scaduto quello, si rinuncia e si gestisce l'errore.
 - **Come al ristorante:** "se il fornitore non arriva entro le 11, togliamo il pesce dal menù di oggi". Senza questa regola, la cucina resta ferma tutto il giorno.
+
+### Eccezione di dominio
+- **In una frase:** un'eccezione **nostra**, con un nome che parla la lingua del progetto (`ServizioSpedizioniNonDisponibile`). Il resto del codice non deve sapere se il corriere è caduto per un timeout o per un errore di rete: gli basta sapere "il servizio non c'è".
+- **Come al ristorante:** il cameriere non spiega al cliente che il furgone del fornitore ha bucato. Dice "oggi il pesce non c'è".
+
+### Guasto simulato (`side_effect`)
+- **In una frase:** con `side_effect` diciamo al mock di **esplodere** invece di rispondere (es. `mock_get.side_effect = requests.Timeout`). Così proviamo in un millisecondo un guasto che nella realtà capita una volta al mese.
 
 ### Sistema distribuito
 - **In una frase:** un sistema fatto di **più processi** che collaborano **attraverso la rete**. La Bottega + il corriere sono già un sistema distribuito, in piccolo.
@@ -218,5 +233,13 @@ def costo_spedizione(cap: str, peso: float) -> float:   # cap e peso sono PARAME
 ### Headless
 - **In una frase:** un browser **senza finestra**: funziona davvero, ma non lo vedete. È così che i test girano in CI.
 
+### Test end-to-end (E2E)
+- **In una frase:** un test che usa l'applicazione **come un utente vero**, dal browser fino al database, passando per tutti i pezzi in mezzo.
+- **La piramide dei test:** tanti test unitari (veloci, con il mock), un po' di test sulle API, **pochi** test E2E (lenti e delicati, ma gli unici che vedono quello che vede il cliente).
+
+### Attesa automatica (`expect`)
+- **In una frase:** `expect(...)` di Playwright **riprova da solo** finché la condizione è vera o finisce il tempo massimo. Per questo nei test non si usa mai `time.sleep()`: o aspetta troppo, o troppo poco.
+
 ### Accessibilità
 - **In una frase:** fare in modo che il sito sia usabile **da tutti**, anche da chi non vede, usa solo la tastiera o ha difficoltà visive. Il **lettore di schermo** è il programma che legge la pagina ad alta voce.
+- **axe:** uno scanner automatico che controlla la pagina contro le regole WCAG (contrasto, etichette, lingua) e dice **quali** elementi le violano.
