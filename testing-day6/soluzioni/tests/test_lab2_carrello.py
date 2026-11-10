@@ -1,8 +1,5 @@
 """
-LAB 2 — Soluzione del LIVELLO 1 (il resto del lab lo facciamo venerdì).
-
-Nota: test_aggiunta_al_carrello passa la prima volta. Rilanciate pytest una seconda volta
-e guardate cosa succede: è il punto di partenza del Livello 2.
+LAB 2 — Soluzione: autenticazione, fixture e stato distribuito.
 """
 
 import pytest
@@ -46,14 +43,12 @@ def test_aggiunta_al_carrello(base_url, auth):
     assert risposta.json() == {"prodotto_id": 2, "quantita": 2}
 
 
-# =============================================================================
-# Livello 2: Ingegneria
-# =============================================================================
+# --- Livello 2: Ingegneria ---------------------------------------------------
 
 
-# --- 1. Non fidarti della risposta: rileggi lo stato -------------------------
 def test_aggiunta_visibile_leggendo_il_carrello(base_url, auth):
-    # Arrange: aggiungo 2 mouse (34.50 l'uno)
+    """Black box distribuito: non mi fido della risposta del POST, verifico lo stato con un'altra chiamata."""
+    # Arrange
     requests.post(
         f"{base_url}/api/carrello",
         json={"prodotto_id": 2, "quantita": 2},
@@ -61,7 +56,7 @@ def test_aggiunta_visibile_leggendo_il_carrello(base_url, auth):
         timeout=5,
     )
 
-    # Act: rileggo il carrello con un'ALTRA chiamata
+    # Act
     carrello = requests.get(f"{base_url}/api/carrello", headers=auth, timeout=5).json()
 
     # Assert
@@ -70,10 +65,6 @@ def test_aggiunta_visibile_leggendo_il_carrello(base_url, auth):
     assert carrello["totale"] == 69.00
 
 
-# --- 2. L'isolamento: è la fixture stato_pulito in conftest.py ---------------
-
-
-# --- 3. Sad path del carrello: UN solo test parametrizzato -------------------
 @pytest.mark.parametrize(
     "body, status_atteso",
     [
@@ -91,14 +82,14 @@ def test_aggiunta_al_carrello_sad_paths(base_url, auth, body, status_atteso):
     )
 
     assert risposta.status_code == status_atteso
+    assert "errore" in risposta.json()
 
 
-# --- 4. Sicurezza: il login non rivela se l'utente esiste --------------------
 @pytest.mark.parametrize(
     "username, password",
     [
-        ("utente_che_non_esiste", "qualcosa"),  # utente inesistente
-        ("mario", "password_sbagliata"),  # utente vero, password sbagliata
+        ("utente_che_non_esiste", "qualcosa"),
+        ("mario", "password_sbagliata"),
     ],
 )
 def test_login_fallito_non_rivela_se_utente_esiste(base_url, username, password):
@@ -110,3 +101,38 @@ def test_login_fallito_non_rivela_se_utente_esiste(base_url, username, password)
 
     assert risposta.status_code == 401
     assert risposta.json()["errore"] == "credenziali non valide"
+
+
+# --- Livello 3: Escalation — il flusso completo (richiede corriere.py acceso) ----
+
+
+def test_checkout_completo_scala_lo_stock(base_url, auth):
+    # Arrange
+    stock_prima = requests.get(f"{base_url}/api/prodotti/1", timeout=5).json()["stock"]
+    requests.post(
+        f"{base_url}/api/carrello",
+        json={"prodotto_id": 1, "quantita": 2},
+        headers=auth,
+        timeout=5,
+    )
+
+    # Act
+    ordine = requests.post(
+        f"{base_url}/api/ordini", json={"cap": "50100"}, headers=auth, timeout=10
+    )
+
+    # Assert
+    assert ordine.status_code == 201
+    assert ordine.json()["totale"] == 179.80  # 2 x 89.90, spedizione gratis sopra 50€
+    stock_dopo = requests.get(f"{base_url}/api/prodotti/1", timeout=5).json()["stock"]
+    assert stock_dopo == stock_prima - 2
+    carrello = requests.get(f"{base_url}/api/carrello", headers=auth, timeout=5).json()
+    assert carrello["righe"] == []
+
+
+def test_checkout_carrello_vuoto_400(base_url, auth):
+    risposta = requests.post(
+        f"{base_url}/api/ordini", json={"cap": "50100"}, headers=auth, timeout=10
+    )
+
+    assert risposta.status_code == 400

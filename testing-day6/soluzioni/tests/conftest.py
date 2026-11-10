@@ -1,29 +1,30 @@
 """
-conftest.py — il "magazzino" delle fixture (Lab 2, Livelli 1 e 2).
-pytest lo carica da solo: le fixture definite qui sono disponibili
+conftest.py — il "magazzino" delle fixture.
+pytest lo carica da solo: tutte le fixture definite qui sono disponibili
 in ogni file di test della cartella, senza bisogno di import.
 """
+
+import os
 
 import pytest
 import requests
 
+BASE_URL = os.getenv("BASE_URL", "http://localhost:8000")
 
-# scope="session": l'indirizzo non cambia, basta calcolarlo una volta.
-# Serve anche quando installerete Playwright: porta con sé un plugin che ha
-# già una fixture base_url "di sessione", e con lo scope di default pytest
-# si lamenterebbe (ScopeMismatch).
+
 @pytest.fixture(scope="session")
 def base_url():
-    return "http://localhost:8000"
+    """Verifica UNA volta per sessione che il server sia acceso, poi restituisce l'URL."""
+    try:
+        requests.get(f"{BASE_URL}/api/health", timeout=3)
+    except requests.ConnectionError:
+        pytest.exit(f"Il server {BASE_URL} è spento. Avvia 'python app.py' e riprova.")
+    return BASE_URL
 
 
-# --- Livello 2: isolamento ---------------------------------------------------
-# Il server ha memoria: il carrello di un test "sporca" il test dopo.
-# autouse=True: pytest la esegue prima di OGNI test, anche se nessuno la chiede.
-# Gira prima di token/auth: il reset cancella anche i token, poi la fixture
-# token fa un login nuovo.
 @pytest.fixture(autouse=True)
 def stato_pulito(base_url):
+    """Prima di OGNI test riporta il sistema allo stato iniziale (isolamento dei test)."""
     requests.post(f"{base_url}/api/reset", timeout=5)
 
 
@@ -35,6 +36,7 @@ def token(base_url):
         json={"username": "mario", "password": "password123"},
         timeout=5,
     )
+    assert risposta.status_code == 200, "Login fallito: la fixture non può procedere"
     return risposta.json()["token"]
 
 
