@@ -2,11 +2,13 @@
 
 ## Contesto
 
-Oggi abbiamo messo un browser robot davanti alla Bottega e abbiamo scoperto che alcuni bottoni non erano bottoni e alcuni campi non avevano un nome: chi non vede lo schermo, o non usa il mouse, non poteva comprare. Il compito chiude questo lavoro.
+Martedì abbiamo guardato la Bottega dal lato del cliente con il registratore di Playwright; mercoledì mattina, nel lab, mettiamo un browser robot davanti alla Bottega e scopriamo che alcuni bottoni non sono bottoni e alcuni campi non hanno un nome: chi non vede lo schermo, o non usa il mouse, non può comprare. Il compito chiude questo lavoro.
 
-**Il Livello 1 è obbligatorio.** Se in aula siete arrivati alla correzione dell'HTML richiede circa un'ora; se vi siete fermati prima, contate un'ora in più. I tempi tra parentesi sono indicativi. Se vi bloccate, scrivete nel README del repository **dove** vi siete bloccati e **cosa** avete provato: conta anche quello.
+> 📌 **Aggiornamento del 10/11:** il lab sul browser l'apriamo mercoledì 11/11 in aula (la prima ora). In aula arriviamo al test d'acquisto **rosso** e a capire perché; la correzione dell'HTML la fate a casa.
 
-> 🧩 **Prima di iniziare:** ripassate [`sommario_lezione_8.md`](../sommario_lezione_8.md). Se i test delle API vanno tutti in `ERROR` con `ScopeMismatch`, la cura è nello [`SETUP.md`](../SETUP.md), punto 2.
+**Il Livello 1 è obbligatorio.** Dopo la lezione di mercoledì richiede circa un'ora e mezza: la correzione dell'HTML (le trappole sono descritte nel lab) e il bug report. I tempi tra parentesi sono indicativi. Se vi bloccate, scrivete nel README del repository **dove** vi siete bloccati e **cosa** avete provato: conta anche quello.
+
+> 🧩 **Prima di iniziare:** ripassate [`sommario_lezione_8.md`](../sommario_lezione_8.md). Se un test con il browser si ferma con `ScopeMismatch`, la cura è nello [`SETUP.md`](../SETUP.md), punto 2.
 
 ## Livello 1: Sopravvivenza (obbligatorio per tutti)
 

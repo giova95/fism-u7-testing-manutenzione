@@ -31,7 +31,7 @@ python -m playwright install chromium
 
 Aggiungete le tre righe a `requirements.txt` (le trovate già in `bottega_start/requirements.txt`).
 
-> ⚠️ **Prima di lanciare di nuovo i test delle API**, aprite `tests/conftest.py` e date alla fixture `base_url` lo scope di sessione:
+> ⚠️ **Consigliato:** in `tests/conftest.py` date alla fixture `base_url` lo scope di sessione:
 >
 > ```python
 > @pytest.fixture(scope="session")      # prima era solo @pytest.fixture
@@ -39,7 +39,7 @@ Aggiungete le tre righe a `requirements.txt` (le trovate già in `bottega_start/
 >     return "http://localhost:8000"
 > ```
 >
-> Perché: `pytest-playwright` porta con sé un plugin che ha **già** una fixture `base_url` di sessione. Se la vostra è "per ogni test" (lo scope di default), pytest si rifiuta di mescolarle e **tutti** i test finiscono in `ERROR` con `ScopeMismatch`, anche quelli con il mock. Con `scope="session"` tutto torna verde. (Nelle soluzioni pubblicate è già così.) Se avete installato Playwright a casa, il primo comando allinea le versioni a quelle del corso e il secondo scarica il browser solo se manca.
+> Perché: Playwright usa `base_url` per i test con il browser e la vuole "di sessione", cioè calcolata una volta per tutta la sessione. Se un test con il browser (fixture `page`) trova una `base_url` "per ogni test" (lo scope di default), si ferma con `ScopeMismatch`. Succede, per esempio, se mettete un test con il browser direttamente in `tests/` invece che in `tests/e2e/`, accanto al `conftest.py` del lab. I test delle API e quelli con il mock **non** ne sono toccati. (Nelle soluzioni pubblicate lo scope è già di sessione.) Se avete installato Playwright a casa, il primo comando allinea le versioni a quelle del corso e il secondo scarica il browser solo se manca.
 
 Verifica:
 
@@ -85,7 +85,7 @@ Si aprono due finestre: un browser e il **Playwright Inspector**. Fate login e a
 | Sintomo | Causa | Soluzione |
 |---------|-------|-----------|
 | `Executable doesn't exist at .../ms-playwright/...` | Il browser non è stato scaricato, o è di un'altra versione di Playwright | `python -m playwright install chromium`, oppure il piano B |
-| `ScopeMismatch: You tried to access the function scoped fixture base_url with a session scoped request object` | La vostra `base_url` in `tests/conftest.py` non ha `scope="session"` | Il riquadro ⚠️ del punto 2 |
+| `ScopeMismatch: You tried to access the function scoped fixture base_url with a session scoped request object` | Un test con il browser usa una `base_url` senza `scope="session"` (di solito: il test non è in `tests/e2e/`) | Spostate il test in `tests/e2e/`, oppure il riquadro ⚠️ del punto 2 |
 | `fixture 'page' not found` | `pytest-playwright` non è installato in **questo** venv | `pip install pytest-playwright==0.10.0` con il venv attivo |
 | `playwright: command not found` | La cartella degli script del venv non è nel PATH | Usate sempre `python -m playwright ...` |
 | Su Linux / WSL: mancano librerie di sistema | Il browser ha bisogno di librerie che il sistema non ha | `python -m playwright install --with-deps chromium` |

@@ -23,4 +23,4 @@ Un test rosso che dimostra un bug è un documento di collaudo, non un errore del
 
 ## Perché `base_url` ha `scope="session"`
 
-Quando installate Playwright, arriva anche una sua fixture `base_url` di sessione. Se la nostra è "di funzione", pytest si ferma con `ScopeMismatch` su **tutti** i test. Con `scope="session"` il controllo del server si fa una volta sola e il problema sparisce.
+Il controllo che il server sia acceso si fa una volta sola, non prima di ogni test. C'è anche un secondo motivo, che si vede con Playwright: i suoi test con il browser vogliono una `base_url` di sessione. Se un test con il browser trova la nostra "di funzione", si ferma con `ScopeMismatch`. I test delle API non ne sono toccati.

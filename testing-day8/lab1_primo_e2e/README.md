@@ -22,7 +22,7 @@ C'è una seconda cosa che scoprirete. Playwright cerca gli elementi **come li ce
 **File di partenza:** `testing-day8/lab1_primo_e2e/conftest.py` → copiatelo in `bottega/tests/e2e/conftest.py`
 **File da creare:** `bottega/tests/e2e/test_acquisto.py`
 **File da modificare:** `bottega/static/index.html`, `bottega/static/app.js` (Livello 2 anche `bottega/static/style.css`)
-**Prerequisito:** corriere e app accesi, come per i test delle API. Playwright installato e `base_url` con `scope="session"` (`SETUP.md`, punto 2).
+**Prerequisito:** corriere e app accesi, come per i test delle API. Playwright installato (`SETUP.md`, punto 2). I test con il browser vanno in `tests/e2e/`, accanto a questo `conftest.py`.
 
 ## Regole di ingaggio (Quality Gate del lab)
 
