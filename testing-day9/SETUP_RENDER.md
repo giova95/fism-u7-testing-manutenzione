@@ -6,9 +6,9 @@ Mercoledì 11/11 la Bottega smette di girare solo sul vostro PC: la mettiamo **o
 
 Il cloud che usiamo si chiama **Render** (https://render.com). È una PaaS (Platform as a Service): voi date il codice e il comando di avvio, Render pensa a server, rete, HTTPS e dominio. Niente Docker (lo vedete in un altro modulo), niente carta di credito.
 
-> **Questo file ha due parti.**
-> - **Parte A: a casa, OBBLIGATORIA, la sera di martedì 10/11** (circa 15 minuti). Senza la Parte A, in aula potete solo guardare: il deploy lo farete a casa.
-> - **Parte B: in aula** durante il Lab 3, seguendo la traccia guidata. Chi non finisce in aula la completa a casa (è il Livello 1 del compito).
+> 📌 **Aggiornamento del 10/11:** l'11/11 il deploy lo vedete fare al docente, in demo. Metterlo online sul **vostro** repository è **facoltativo** (Livello 2 del compito della G4). Se volete farlo:
+> - **Parte A: a casa** (circa 15 minuti): l'account e il collegamento con GitHub;
+> - **Parte B: a casa**, seguendo la traccia guidata di `lab3_deploy/README.md`.
 
 ---
 
@@ -28,7 +28,7 @@ Il cold start non è un difetto da nascondere: è un **guasto gratuito**. Ricord
 
 ---
 
-## Parte A — A casa, la sera del 10/11 (OBBLIGATORIA)
+## Parte A — A casa (per chi fa il deploy, facoltativo)
 
 ### A1. Il repository è pronto?
 
@@ -61,11 +61,11 @@ Quando Render chiede l'accesso a GitHub (succede la prima volta che create un se
 
 Nella dashboard di Render cliccate **New › Web Service**. Nella lista dei repository Git dovete vedere quello della Bottega. **Non create ancora niente**: fermatevi qui e chiudete la pagina.
 
-✅ La Parte A è finita. Se qualcosa non va, scrivete al docente **martedì sera**, così mercoledì mattina lo sistemiamo nei primi minuti invece che durante il lab.
+✅ La Parte A è finita. Se qualcosa non va, scrivete al docente con lo screenshot dell'errore.
 
 ---
 
-## Parte B — In aula (Lab 3): i due servizi
+## Parte B — I due servizi (traccia del Lab 3)
 
 Creiamo **due** servizi dallo **stesso** repository, come nell'architettura che conoscete:
 

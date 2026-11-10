@@ -6,7 +6,7 @@ Martedì abbiamo guardato la Bottega dal lato del cliente con il registratore di
 
 > 📌 **Aggiornamento del 10/11:** il lab sul browser l'apriamo mercoledì 11/11 in aula (la prima ora). In aula arriviamo al test d'acquisto **rosso** e a capire perché; la correzione dell'HTML la fate a casa.
 
-**Il Livello 1 è obbligatorio.** Dopo la lezione di mercoledì richiede circa un'ora e mezza: la correzione dell'HTML (le trappole sono descritte nel lab) e il bug report. I tempi tra parentesi sono indicativi. Se vi bloccate, scrivete nel README del repository **dove** vi siete bloccati e **cosa** avete provato: conta anche quello.
+**Il Livello 1 è obbligatorio.** Dopo la lezione di mercoledì richiede circa un'ora: la correzione dell'HTML finché il test d'acquisto è verde (le trappole sono descritte nel lab). I tempi tra parentesi sono indicativi. Se vi bloccate, scrivete nel README del repository **dove** vi siete bloccati e **cosa** avete provato: conta anche quello.
 
 > 🧩 **Prima di iniziare:** ripassate [`sommario_lezione_8.md`](../sommario_lezione_8.md). Se un test con il browser si ferma con `ScopeMismatch`, la cura è nello [`SETUP.md`](../SETUP.md), punto 2.
 
@@ -17,13 +17,13 @@ Martedì abbiamo guardato la Bottega dal lato del cliente con il registratore di
    - l'HTML corretto: `<label>` per Username, Password e CAP; `<button>` per "Aggiungi" e "Conferma ordine", con il checkout che parte dall'evento `submit` del form;
    - `pytest tests/e2e` verde, in headless, **due volte di fila**;
    - vietati `time.sleep()` e `wait_for_timeout()`.
-2. **Il bug report** (circa 15'). Nel `BUG_REPORT.md` aggiungete una sezione **"Frontend"** con i difetti trovati dal test con i ruoli (campi senza etichetta, bottoni fatti con un `<div>`). Per ognuno scrivete **quale test** l'ha trovato e **chi** ne è colpito (chi usa un lettore di schermo? chi usa solo la tastiera?).
-3. Un commit per ogni gruppo di correzioni, con il codice del bug nel messaggio (es. `fix: BUG-012 bottoni del catalogo non raggiungibili da tastiera`).
+2. Un commit per ogni gruppo di correzioni, con un messaggio che dice cosa avete corretto (es. `fix: bottoni del catalogo raggiungibili da tastiera`).
 
-## Livello 2: Ingegneria (consigliato)
+## Livello 2: Ingegneria (facoltativo)
 
-1. **Lo scanner** (lab, **Livello 2, punti 1-2**) (circa 40'): `tests/e2e/test_accessibilita.py` con axe, che asserisce **zero violazioni `critical` e `serious`** e quando fallisce dice **quali** regole e **quali** elementi. Correggete `lang`, `alt` e i design token del contrasto in `style.css`. Nel bug report aggiungete i difetti trovati da axe, con il criterio WCAG (1.1.1 *Contenuti non testuali*, 1.4.3 *Contrasto minimo*, 3.1.1 *Lingua della pagina*).
-2. **Il Page Object Model** (lab, **Livello 2, punto 3**) (circa 40'): `tests/e2e/pagina_bottega.py`, la fixture `bottega` in `conftest.py` e `test_acquisto_completo` riscritto con il Page Object. `accedi()` torna solo quando compare il saluto. Nei file `test_*.py` non compare nessun `get_by_...`.
+1. **Il bug report** (circa 15'). Nel `BUG_REPORT.md` aggiungete una sezione **"Frontend"** con i difetti trovati dal test con i ruoli (campi senza etichetta, bottoni fatti con un `<div>`). Per ognuno: **quale test** l'ha trovato e **chi** ne è colpito (chi usa un lettore di schermo? chi usa solo la tastiera?).
+2. **Lo scanner** (lab, **Livello 2, punti 1-2**) (circa 40'): `tests/e2e/test_accessibilita.py` con axe, che asserisce **zero violazioni `critical` e `serious`** e quando fallisce dice **quali** regole e **quali** elementi. Correggete `lang`, `alt` e i design token del contrasto in `style.css`. Nel bug report aggiungete i difetti trovati da axe, con il criterio WCAG (1.1.1 *Contenuti non testuali*, 1.4.3 *Contrasto minimo*, 3.1.1 *Lingua della pagina*).
+3. **Il Page Object Model** (lab, **Livello 2, punto 3**) (circa 40'): `tests/e2e/pagina_bottega.py`, la fixture `bottega` in `conftest.py` e `test_acquisto_completo` riscritto con il Page Object. `accedi()` torna solo quando compare il saluto. Nei file `test_*.py` non compare nessun `get_by_...`.
 
 ## Livello 3: Escalation (facoltativo, sceglietene quanti volete)
 
