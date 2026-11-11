@@ -1,6 +1,6 @@
 # SIMULAZIONE DI ESAME: Parte Teorica (30 Minuti)
 
-10 domande, una sola risposta corretta, 2 punti ciascuna. Le domande dell'esame vero saranno **diverse**, ma sugli stessi argomenti: soprattutto API, status code, stato pulito, fixture, mock ed eccezioni di dominio, l'esperimento sul corriere; poche domande di base su Playwright, codice legacy e pipeline.
+10 domande, una sola risposta corretta, 2 punti ciascuna. Le domande dell'esame vero saranno **diverse**, ma sugli stessi argomenti: soprattutto API, status code, stato pulito, fixture, mock ed eccezioni di dominio, l'esperimento sul corriere; qualche domanda di base sui test con il browser (Playwright).
 
 1. Con il token di Giulia, un test chiama `GET /api/prenotazioni/42`, che appartiene a un altro socio. Quale status code vi aspettate da un'API scritta bene?
    A) `401 Unauthorized`, perché il token non vale per quella risorsa.
@@ -50,14 +50,14 @@
    C) Le asserzioni (`expect(...)`) su quello che l'utente deve vedere: senza, è una macro che clicca, non un test. Codegen serve a scoprire i locator.
    D) Un `print()` dopo ogni azione, così si vede nel terminale cosa ha fatto.
 
-9. Arriva una segnalazione di bug su un codice legacy (come il ticket BOT-42 della demo). Scrivete il test che lo riproduce **prima** di correggere. Cosa deve succedere la prima volta che lo lanciate?
-   A) Deve essere **rosso**, e rosso per il motivo giusto (il valore sbagliato, non un errore di import): dimostra che il test riproduce davvero il bug.
-   B) Deve essere verde, altrimenti il test è scritto male.
-   C) Non importa: conta solo che sia verde dopo la correzione.
-   D) Non si lancia: un test che fallisce non va mai eseguito.
+9. Il test con il browser si ferma con `waiting for get_by_label("Username")`, ma nella pagina la casella con scritto "Username" si vede. Perché?
+   A) La casella ha solo il `placeholder` (il testo grigio): manca un `<label for="username">` collegato all'`id` dell'input, e `get_by_label` cerca l'etichetta, non il placeholder.
+   B) La pagina è lenta: serve un `time.sleep(3)` prima del `fill`.
+   C) Playwright non sa compilare i campi di tipo `text`.
+   D) Il server è spento.
 
-10. L'URL del deploy hook di Render permette a chiunque lo conosca di avviare un deploy. Come va usato nel workflow?
-    A) Scritto in chiaro nel file YAML, tanto il repository è privato.
-    B) Messo in un file `.env` committato nel repository.
-    C) Passato come argomento da riga di comando a `pytest`.
-    D) Salvato come **secret** del repository e letto con `${{ secrets.NOME }}`: non compare nel codice e GitHub lo maschera nei log.
+10. Avete trasformato "Conferma ordine" in un `<button type="submit">` dentro il form. Cliccandolo, la pagina si ricarica e il messaggio dell'ordine non compare mai. Cosa manca?
+    A) Un `time.sleep()` dopo il click, per dare tempo al messaggio di comparire.
+    B) Un locator CSS al posto di `get_by_role`, che è meno preciso.
+    C) Un `expect(...)` prima del click.
+    D) `evento.preventDefault()` nella funzione che gestisce l'evento `submit` del form: senza, il browser invia il form e ricarica la pagina.
