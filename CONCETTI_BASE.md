@@ -11,8 +11,6 @@
 - [Parte 1: Reti e web (Giorno 6)](#parte-1--reti-e-web-giorno-6)
 - [Parte 2: Python e test (ripasso del semestre 1, usato ogni giorno)](#parte-2--python-e-test-ripasso-del-semestre-1-usato-ogni-giorno)
 - [Parte 3: Servizi esterni e browser (Giorno 7-8)](#parte-3--servizi-esterni-e-browser-giorno-7-8)
-- [Parte 4: Manutenzione del codice (Giorno 9)](#parte-4--manutenzione-del-codice-giorno-9)
-- [Parte 5: Rilascio in produzione (Giorno 9)](#parte-5--rilascio-in-produzione-giorno-9)
 
 ---
 
@@ -244,45 +242,3 @@ def costo_spedizione(cap: str, peso: float) -> float:   # cap e peso sono PARAME
 
 ### Accessibilità
 - **In una frase:** fare in modo che il sito sia usabile **da tutti**, anche da chi non vede, usa solo la tastiera o ha difficoltà visive. Il **lettore di schermo** è il programma che legge la pagina ad alta voce.
-- **axe:** uno scanner automatico che controlla la pagina contro le regole WCAG (contrasto, etichette, lingua) e dice **quali** elementi le violano.
-
----
-
-## Parte 4 — Manutenzione del codice (Giorno 9)
-
-### Codice legacy
-- **In una frase:** codice che funziona (forse), che nessuno capisce più fino in fondo, e **senza test**.
-
-### Refactoring
-- **In una frase:** cambiare **come** è scritto il codice senza cambiare **cosa** fa. Come riordinare una stanza: le cose restano le stesse, ma si trovano meglio.
-
-### Bug di regressione
-- **In una frase:** qualcosa che **prima funzionava** e che una modifica ha rotto. I test esistono soprattutto per accorgersene subito.
-
-### Debito tecnico
-- **In una frase:** le scorciatoie prese oggi che costeranno lavoro domani, come un prestito con gli interessi.
-
----
-
-## Parte 5 — Rilascio in produzione (Giorno 9)
-
-### Ambiente (sviluppo, test, produzione)
-- **Sviluppo:** il vostro PC. **Produzione:** il server vero, usato dai clienti veri. Un errore in sviluppo costa un minuto, in produzione costa soldi e clienti.
-
-### Deploy
-- **In una frase:** l'operazione di **installare** una nuova versione del software sul server di produzione.
-
-### Cloud / PaaS
-- **In una frase:** computer di un'altra azienda che si affittano via internet. Un **PaaS** (es. Render) si occupa anche di installare Python e avviare l'app: voi date solo il codice.
-
-### Variabile d'ambiente
-- **In una frase:** un valore di configurazione passato al programma **dall'esterno**, senza scriverlo nel codice (es. `BOTTEGA_ENV=produzione`). È lo stesso principio del file `.env` del semestre 1.
-
-### Segreto (secret)
-- **In una frase:** un valore che **non deve finire su Git** (password, chiavi, URL di deploy). Su GitHub si salva in *Settings → Secrets*.
-
-### Pipeline CI/CD
-- **CI** (integrazione continua): a ogni push, un server esegue i test. **CD** (rilascio continuo): se i test passano, il server **installa anche** la nuova versione in produzione.
-
-### Smoke test
-- **In una frase:** un test **veloce e superficiale** subito dopo il deploy: "il server si accende e risponde?". Il nome viene dall'elettronica: accendi il circuito e guardi se esce fumo.

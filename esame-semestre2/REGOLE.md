@@ -33,7 +33,7 @@ Errori **veniali** (tolgono pochi punti, non azzerano): sintassi, una chiamata s
 ### PARTE 1: Teoria (20 Punti | Tempo: 30 Minuti)
 
 - **10 Domande a risposta multipla** (2 punti ciascuna, 4 opzioni)
-- **Argomenti:** quasi tutte le domande sono su quello che abbiamo fatto con le API: status code e contratto, stato pulito e test isolati, fixture, mock e iniezione di guasti, eccezioni di dominio, l'esperimento sul corriere. Poche domande di base (al massimo tre) sul resto: il primo test Playwright, il codice legacy visto in demo, la pipeline di deploy
+- **Argomenti:** quasi tutte le domande sono su quello che abbiamo fatto con le API: status code e contratto, stato pulito e test isolati, fixture, mock e iniezione di guasti, eccezioni di dominio, l'esperimento sul corriere. Poche domande di base (al massimo tre) sui test con il browser (Playwright) e sulla piramide dei test
 - **Esecuzione:** Una sola risposta è corretta. Leggete attentamente
 
 ### PARTE 2: Pratica (80 Punti | Tempo: 90 Minuti)
