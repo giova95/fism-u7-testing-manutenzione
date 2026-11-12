@@ -38,7 +38,7 @@ Errori **veniali** (tolgono pochi punti, non azzerano): sintassi, una chiamata s
 
 ### PARTE 2: Pratica (80 Punti | Tempo: 90 Minuti)
 
-- **2 Esercizi su foglio**, con il **contratto stampato** nel testo. Molte parti sono **scheletri da completare**: ogni lacuna ha un numero (`__(7)__`) e sul foglio scrivete il numero e quello che va al suo posto. Alcuni test li scrivete per intero, sul modello degli scheletri
+- **2 Esercizi**, con il **contratto stampato** nel testo. Quasi tutto è fatto di **scheletri da completare**: ogni lacuna ha un numero (`__(7)__`) e voi scrivete quello che va al suo posto nel **foglio risposte** stampato in fondo al fascicolo. **Un solo test** si scrive per intero: il percorso felice dell'Esercizio 1, sul modello degli altri test. Le domande aperte hanno le righe sotto la domanda
 - **Esercizio 1 (35 Punti) - Black Box di un'API REST:** test con `requests` su un contratto dato: status code, `Content-Type`, schema del JSON con `jsonschema`, risorsa inesistente (404 in JSON), payload corrotti in un test parametrizzato (`data=`)
 - **Esercizio 2 (45 Punti) - Fixture, stato pulito e servizi esterni:** `conftest.py` con la catena di fixture (login → token → header) e lo stato pulito `autouse`, un test che verifica lo stato con una seconda chiamata; mock di un servizio esterno con iniezione di guasti (timeout, server irraggiungibile, risposta 503) ed eccezione di dominio; una domanda aperta sull'esperimento con il servizio esterno spento o lento
 
@@ -48,8 +48,8 @@ Tre simulazioni, con la stessa struttura dell'esame e contesti diversi. Ognuna h
 
 | Simulazione | Livello | Dove | Soluzioni |
 |---|---|---|---|
-| 1. La Biblioteca civica | come l'esame | fatta in aula l'11/11: [`simulazione_pc/`](simulazione_pc/README.md) | già pubblicate: [`soluzioni_simulazione/`](soluzioni_simulazione/README.md) |
-| 2. Il Cinema Aurora | **guidata**: quasi tutto a lacune | a casa: [`simulazione_2/`](simulazione_2/README.md) | mercoledì 18/11 |
-| 3. VeloCity | **come l'esame**: alcuni test da scrivere per intero | a casa, dopo la 2: [`simulazione_3/`](simulazione_3/README.md) | mercoledì 18/11 |
+| 1. La Biblioteca civica | un po' più difficile: quattro test da scrivere per intero | fatta in aula l'11/11: [`simulazione_pc/`](simulazione_pc/README.md) | già pubblicate: [`soluzioni_simulazione/`](soluzioni_simulazione/README.md) |
+| 2. Il Cinema Aurora | **come l'esame**: quasi tutto a lacune | a casa: [`simulazione_2/`](simulazione_2/README.md) | mercoledì 18/11 |
+| 3. VeloCity | **più difficile dell'esame**: quattro test da scrivere per intero (all'esame ce n'è uno solo) | a casa, dopo la 2: [`simulazione_3/`](simulazione_3/README.md) | mercoledì 18/11 |
 
 Fatele con il cronometro (30 minuti di teoria, 90 di pratica) e con il solo cheat sheet. Segnate i dubbi: li riprendiamo il 25/11 prima dell'esame.

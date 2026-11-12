@@ -2,7 +2,7 @@
 
 Come nel semestre 1: smettete di cercare di ricordare la sintassi a memoria. Questo foglio vi dice **come** si scrive una cosa, non **quando** usarla né **perché**: quella è la parte che viene valutata.
 
-Il giorno dell'esame avrete **solo questo foglio**. Del semestre 1 qui sotto c'è l'essenziale (`pytest.raises`, `parametrize`, `@patch`); il resto è quello che abbiamo usato nei lab sulle API. La parte pratica dell'esame riguarda solo API, fixture e mock: per questo qui non ci sono Playwright e GitHub Actions.
+Il giorno dell'esame avrete **solo questo foglio**. Del semestre 1 qui sotto c'è l'essenziale (`pytest.raises`, `parametrize`, `@patch`); il resto è quello che abbiamo usato nei lab sulle API. La parte pratica dell'esame riguarda solo API, fixture e mock: per questo qui non c'è Playwright.
 
 ## 0. PROMEMORIA DAL SEMESTRE 1
 
@@ -21,8 +21,8 @@ import requests
 
 BASE_URL = "http://localhost:8000"
 
-# GET (con parametri in query string: /api/cerca?q=yoga)
-risposta = requests.get(f"{BASE_URL}/api/cerca", params={"q": "yoga"}, timeout=5)
+# GET
+risposta = requests.get(f"{BASE_URL}/api/risorsa/1", timeout=5)
 
 # POST con un dizionario Python: requests lo trasforma in JSON per voi
 risposta = requests.post(f"{BASE_URL}/api/risorsa", json={"campo": 1}, timeout=5)
@@ -35,9 +35,10 @@ risposta = requests.post(
     timeout=5,
 )
 
-# Header personalizzati (es. autenticazione)
+# Header personalizzati (es. autenticazione con un token)
+token = "abc123"
 risposta = requests.get(f"{BASE_URL}/api/privata",
-                        headers={"Authorization": "Bearer abc123"}, timeout=5)
+                        headers={"Authorization": f"Bearer {token}"}, timeout=5)
 ```
 
 **Leggere la risposta:**
@@ -91,24 +92,15 @@ def seconda(nome_fixture):           # una fixture può chiederne un'altra per n
 def prima_di_ogni_test():
     ...
 
-@pytest.fixture
-def con_pulizia():
-    risorsa = "apri"
-    yield risorsa                    # il test gira qui
-    # codice dopo lo yield = teardown, eseguito alla fine del test
-
 
 def test_esempio(seconda):           # il test dichiara di cosa ha bisogno: pytest fa il resto
     assert seconda == "valore!"
 ```
 
-Una fixture con lo **stesso nome** definita nel file di test **sostituisce** quella del `conftest.py` per i test di quel file.
-
 **Comandi utili:**
 
 ```bash
 pytest -v                     # elenco dei test con esito
-pytest -k "carrello"          # solo i test il cui nome contiene "carrello"
 pytest -s                     # mostra anche i print() dei test
 ```
 
@@ -129,8 +121,6 @@ def test_con_mock(mock_oggetto):
 
     # Con quali argomenti è stato chiamato?
     args, kwargs = mock_oggetto.call_args          # kwargs["nome_argomento"]
-    mock_oggetto.assert_called_once()
-    mock_oggetto.assert_called_once_with("arg1", chiave=3)   # chiamato una volta, con questi argomenti
 ```
 
 **Costruire un oggetto finto con attributi e metodi:**
@@ -140,6 +130,15 @@ finto = MagicMock()
 finto.status_code = 200                                   # attributo
 finto.json.return_value = {"chiave": "valore"}            # metodo json() che restituisce un dict
 finto.metodo.side_effect = RuntimeError("esplodo")        # metodo che solleva un'eccezione
+```
+
+**Una risposta finta che contiene un errore** (la chiamata riesce, è la risposta a dire che qualcosa è andato storto):
+
+```python
+risposta_finta = MagicMock()
+risposta_finta.status_code = 500
+risposta_finta.raise_for_status.side_effect = requests.HTTPError("500")   # raise_for_status() esplode
+mock_oggetto.return_value = risposta_finta                                # la chiamata restituisce la risposta
 ```
 
 **Eccezioni della libreria requests** (tutte figlie di `requests.RequestException`):
@@ -159,6 +158,11 @@ requests.HTTPError        # sollevata da risposta.raise_for_status() se lo statu
 ])
 def test_matrice(ingresso, atteso):
     assert converti(ingresso) == atteso
+
+
+@pytest.mark.parametrize("errore", [ValueError("a"), KeyError("b")])   # una matrice di eccezioni
+def test_matrice_di_errori(errore):
+    ...
 ```
 
 Con `@patch` e `@pytest.mark.parametrize` insieme, gli argomenti del mock vengono **prima** di quelli della matrice: `def test_x(mock_get, ingresso, atteso):`

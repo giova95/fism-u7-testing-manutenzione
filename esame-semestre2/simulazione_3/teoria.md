@@ -1,4 +1,4 @@
-# SIMULAZIONE 3 (livello esame): Parte Teorica (30 minuti)
+# SIMULAZIONE 3 (allenamento avanzato): Parte Teorica (30 minuti)
 
 10 domande, una sola risposta corretta, 2 punti ciascuna. Le lettere vanno in `RISPOSTE.md`.
 

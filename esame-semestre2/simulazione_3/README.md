@@ -1,6 +1,6 @@
-# Simulazione 3 (livello esame): VeloCity
+# Simulazione 3 (allenamento avanzato): VeloCity
 
-Una simulazione per allenarvi **a casa**, con la stessa struttura dell'esame del 25/11: 30 minuti di teoria, 90 di pratica. È al **livello dell'esame**: meno lacune, e alcuni test da scrivere per intero. Fatela dopo la simulazione 2, come una prova vera.
+Una simulazione per allenarvi **a casa**, con la stessa struttura dell'esame del 25/11: 30 minuti di teoria, 90 di pratica. È **un po' più difficile dell'esame**: meno lacune, e quattro test da scrivere per intero (all'esame ce n'è uno solo). Fatela dopo la simulazione 2: se ve la cavate qui, all'esame siete tranquilli.
 
 | Parte | Tempo | File |
 |-------|-------|------|

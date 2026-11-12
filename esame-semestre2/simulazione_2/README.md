@@ -1,6 +1,6 @@
 # Simulazione 2 (guidata): il Cinema Aurora
 
-Una simulazione per allenarvi **a casa**, con la stessa struttura dell'esame del 25/11: 30 minuti di teoria, 90 di pratica. È **guidata**: quasi tutto è a lacune. Fatela prima della simulazione 3, che invece è al livello dell'esame.
+Una simulazione per allenarvi **a casa**, con la stessa struttura dell'esame del 25/11: 30 minuti di teoria, 90 di pratica. È **guidata**: quasi tutto è a lacune, come l'esame vero. Fatela prima della simulazione 3, che è un po' più difficile.
 
 | Parte | Tempo | File |
 |-------|-------|------|

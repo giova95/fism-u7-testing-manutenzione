@@ -1,6 +1,6 @@
-# SIMULAZIONE 3 (livello esame): Parte Pratica (90 minuti, 80 punti)
+# SIMULAZIONE 3 (allenamento avanzato): Parte Pratica (90 minuti, 80 punti)
 
-Stessa struttura e stesso livello dell'esame: meno lacune, e alcuni test da scrivere **per intero**. Fatela dopo la simulazione 2, con il cronometro.
+Stessa struttura dell'esame, ma **un po' più difficile**: meno lacune, e quattro test da scrivere **per intero** (all'esame ce n'è uno solo). Fatela dopo la simulazione 2, con il cronometro.
 
 - **Al PC** (consigliato a casa): il codice è nelle cartelle `es1/` e `es2/` qui accanto, dove ogni lacuna `__(7)__` del testo è scritta `LACUNA(7)`. Istruzioni nel [`README.md`](README.md).
 - **Su carta** (come all'esame): sul foglio scrivete il numero della lacuna e quello che va al suo posto, per esempio «(7) len(stazioni) > 0». Dove il testo dice «scrivete il test», scrivete la funzione intera.

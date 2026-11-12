@@ -10,7 +10,7 @@
 **Indice**
 - [Parte 1: Reti e web (Giorno 6)](#parte-1--reti-e-web-giorno-6)
 - [Parte 2: Python e test (ripasso del semestre 1, usato ogni giorno)](#parte-2--python-e-test-ripasso-del-semestre-1-usato-ogni-giorno)
-- [Parte 3: Servizi esterni e browser (Giorno 7-8)](#parte-3--servizi-esterni-e-browser-giorno-7-8)
+- [Parte 3: Servizi esterni e browser (Giorno 7-9)](#parte-3--servizi-esterni-e-browser-giorno-7-9)
 
 ---
 
@@ -126,6 +126,12 @@
 - **In una frase:** il documento che dice **esattamente** cosa fa ogni endpoint: cosa riceve, cosa restituisce, quali errori. Per noi è `bottega/README.md`.
 - **Regola del corso:** se codice e contratto non sono d'accordo, **ha ragione il contratto** e il codice ha un bug.
 
+### Schema JSON (`jsonschema`)
+- **In una frase:** la "forma" che un JSON deve avere, scritta come dizionario: quali campi, di che tipo, quali obbligatori. `validate(instance=..., schema=...)` controlla un JSON contro lo schema e, se non va bene, solleva un'eccezione (test rosso).
+- Le tre chiavi che usiamo: `properties` (com'è fatto ogni campo **se c'è**), `required` (quali campi **devono** esserci), `"additionalProperties": False` (nessun campo in più).
+- **Attenzione:** i tipi sono quelli di JSON, non di Python: `"integer"`, `"string"`, `"boolean"` (non `int`, `str`, `bool`).
+- **Come al ristorante:** il modulo prestampato della comanda: se manca il numero del tavolo, o c'è scritto qualcosa nel posto sbagliato, la cucina la rimanda indietro.
+
 ### Frontend e backend
 - **Frontend:** quello che gira **nel browser** e che l'utente vede (HTML, CSS, JavaScript): `bottega/static/`.
 - **Backend:** quello che gira **sul server** e che l'utente non vede (Python): `bottega/app.py`.
@@ -189,7 +195,7 @@ def costo_spedizione(cap: str, peso: float) -> float:   # cap e peso sono PARAME
 
 ---
 
-## Parte 3 — Servizi esterni e browser (Giorno 7-8)
+## Parte 3 — Servizi esterni e browser (Giorno 7-9)
 
 ### Servizio esterno (dipendenza)
 - **In una frase:** un programma di **un'altra azienda** da cui il nostro dipende. Non possiamo modificarlo, possiamo solo chiamarlo. Per noi è il corriere SpediVeloce.
@@ -209,6 +215,12 @@ def costo_spedizione(cap: str, peso: float) -> float:   # cap e peso sono PARAME
 ### Sistema distribuito
 - **In una frase:** un sistema fatto di **più processi** che collaborano **attraverso la rete**. La Bottega + il corriere sono già un sistema distribuito, in piccolo.
 
+
+### Esperimento di chaos
+- **In una frase:** rompere **apposta**, in modo **controllato**, un pezzo del sistema acceso (es. spegnere o rallentare il corriere) per vedere come reagisce il sistema intero.
+- **Prima** si scrive un'**ipotesi misurabile**: «se il corriere è spento, il checkout risponde `503` in meno di 4 secondi e il carrello resta pieno». Poi si prova e si confronta.
+- **Spento contro lento:** con il servizio spento l'errore arriva subito e te ne accorgi; con il servizio lento, **senza timeout**, le richieste restano appese e bloccano tutto. Il timeout trasforma "lento" in un errore veloce.
+- **Mock o esperimento?** Il test con il mock verifica **la nostra funzione** da sola; l'esperimento verifica **il sistema intero acceso**. Servono tutti e due.
 
 ### HTML, CSS, JavaScript
 | | Cosa fa | Analogia (casa) |

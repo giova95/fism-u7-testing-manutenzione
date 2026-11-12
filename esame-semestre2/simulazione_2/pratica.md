@@ -1,6 +1,6 @@
 # SIMULAZIONE 2 (guidata): Parte Pratica (90 minuti, 80 punti)
 
-Stessa struttura dell'esame, contesto diverso. Questa simulazione è **guidata**: quasi tutto è a lacune, per allenare il ragionamento un pezzo alla volta.
+Stessa struttura dell'esame, contesto diverso. Questa simulazione è **guidata**: quasi tutto è a lacune, come l'esame vero.
 
 - **Al PC** (consigliato a casa): il codice è nelle cartelle `es1/` e `es2/` qui accanto, dove ogni lacuna `__(7)__` del testo è scritta `LACUNA(7)`. Istruzioni nel [`README.md`](README.md).
 - **Su carta** (come all'esame): sul foglio scrivete il numero della lacuna e quello che va al suo posto, per esempio «(7) len(film) > 0».
