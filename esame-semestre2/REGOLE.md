@@ -10,7 +10,7 @@
 
 ## Regole
 
-L'obiettivo di questo esame non è valutare se sapete scrivere codice a memoria, ma se sapete progettare dei test di cui ci si può fidare. Come nel semestre 1, ma su un sistema distribuito: un server raggiungibile solo via rete e un servizio esterno che può guastarsi. All'esame c'è **solo quello che abbiamo fatto in aula**: la parte pratica riguarda le API, le fixture e i mock, come nei lab della G1 corretti insieme.
+L'obiettivo di questo esame non è valutare se sapete scrivere codice a memoria, ma se sapete progettare dei test di cui ci si può fidare. Come nel semestre 1, ma su un sistema distribuito: un server raggiungibile solo via rete e un servizio esterno che può guastarsi. All'esame c'è **solo quello che abbiamo fatto in aula**: la parte pratica riguarda le API, le fixture e i mock, come nei lab corretti insieme in aula.
 
 1. **Nessun aiuto esterno:** È vietato l'uso di smartphone o documentazione non fornita dal docente
 2. **Sintassi vs Logica:** Siete valutati sulla logica (scatola nera, isolamento, stato pulito, path corretto del mock, asserzioni sul contratto, gestione dei guasti). Piccoli errori veniali di sintassi Python (es. dimenticare i due punti `:` a fine riga, un'indentazione imperfetta, una virgola mancante) non causeranno l'annullamento dell'esercizio, purché il design del test sia corretto
@@ -24,7 +24,7 @@ In azienda certi errori non sono "mezzo punto in meno": sono test che danno una 
 - **Scatola nera violata:** nei test di un'API importare il codice del server (`from app import ...`) invece di parlarci via HTTP
 - **Mock che non isola:** un test che fa partire una chiamata di rete vera verso un servizio esterno, oppure che mocka **la funzione stessa** che dovrebbe testare (il test diventa verde, ma non verifica niente)
 - **Test dipendenti dall'ordine:** test che passano solo se eseguiti in una certa sequenza, o solo la prima volta, perché lo stato del server non viene riportato a una condizione nota
-- **`sleep` per "aspettare":** usare `time.sleep()` in un test per sincronizzarsi con un server o per simulare un servizio lento, invece del `timeout` e dei mock
+- **`sleep` per "aspettare":** usare `time.sleep()` in un test per sincronizzarsi con un server o per simulare un servizio lento, invece del `timeout` e dei mock. Vale anche nei test con il browser: `time.sleep()` o `wait_for_timeout()` al posto di `expect(...)`
 
 Errori **veniali** (tolgono pochi punti, non azzerano): sintassi, una chiamata senza `timeout`, nomi poco chiari, commenti AAA mancanti.
 
@@ -44,4 +44,12 @@ Errori **veniali** (tolgono pochi punti, non azzerano): sintassi, una chiamata s
 
 ### SIMULAZIONI DEL TEST
 
-Trovate inoltre nella cartella due markdown: una simulazione della parte teorica e una della parte pratica, con la stessa struttura dell'esame e un contesto diverso. La simulazione la facciamo in aula, al PC, mercoledì 11/11 dalle 13:00 (istruzioni in `simulazione_pc/README.md`); le soluzioni escono alla fine della lezione.
+Tre simulazioni, con la stessa struttura dell'esame e contesti diversi. Ognuna ha un server da avviare e il codice da completare al PC, oltre al testo per lavorare su carta come all'esame.
+
+| Simulazione | Livello | Dove | Soluzioni |
+|---|---|---|---|
+| 1. La Biblioteca civica | come l'esame | fatta in aula l'11/11: [`simulazione_pc/`](simulazione_pc/README.md) | già pubblicate: [`soluzioni_simulazione/`](soluzioni_simulazione/README.md) |
+| 2. Il Cinema Aurora | **guidata**: quasi tutto a lacune | a casa: [`simulazione_2/`](simulazione_2/README.md) | mercoledì 18/11 |
+| 3. VeloCity | **come l'esame**: alcuni test da scrivere per intero | a casa, dopo la 2: [`simulazione_3/`](simulazione_3/README.md) | mercoledì 18/11 |
+
+Fatele con il cronometro (30 minuti di teoria, 90 di pratica) e con il solo cheat sheet. Segnate i dubbi: li riprendiamo il 25/11 prima dell'esame.
