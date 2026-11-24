@@ -11,6 +11,7 @@
 - [Parte 1: Reti e web (Giorno 6)](#parte-1--reti-e-web-giorno-6)
 - [Parte 2: Python e test (ripasso del semestre 1, usato ogni giorno)](#parte-2--python-e-test-ripasso-del-semestre-1-usato-ogni-giorno)
 - [Parte 3: Servizi esterni e browser (Giorno 7-9)](#parte-3--servizi-esterni-e-browser-giorno-7-9)
+- [Parte 6: Affidabilità (Giorno 10)](#parte-6--affidabilità-giorno-10)
 
 ---
 
@@ -254,3 +255,26 @@ def costo_spedizione(cap: str, peso: float) -> float:   # cap e peso sono PARAME
 
 ### Accessibilità
 - **In una frase:** fare in modo che il sito sia usabile **da tutti**, anche da chi non vede, usa solo la tastiera o ha difficoltà visive. Il **lettore di schermo** è il programma che legge la pagina ad alta voce.
+
+---
+
+## Parte 6 — Affidabilità (Giorno 10)
+
+### Latenza
+- **In una frase:** quanto tempo passa tra la richiesta e la risposta.
+
+### Media e percentile
+- **Media:** la somma divisa per il numero di valori. **Inganna**: un solo valore enorme si nasconde.
+- **p95 (95° percentile):** "il 95% delle richieste è stato **più veloce** di questo valore". Racconta l'esperienza dei clienti più sfortunati.
+
+### Retry
+- **In una frase:** riprovare un'operazione fallita. Utile per i guasti momentanei, **pericoloso** se l'operazione non si può ripetere senza danni (es. pagare due volte).
+
+### Chaos Engineering
+- **In una frase:** rompere il sistema **apposta**, in modo **controllato**, per scoprire come si rompe **prima** che lo scopra il cliente.
+
+### Stato stazionario
+- **In una frase:** com'è fatto il sistema quando è **sano**, misurato con dei numeri (per noi: errori e p95 di `misura.py`). Si misura **prima** di rompere qualcosa, per poter dire "è peggiorato".
+
+### Postmortem blameless
+- **In una frase:** il resoconto scritto di un incidente: cosa è successo, perché il **sistema** lo ha permesso, cosa cambiamo. Senza cercare un colpevole.
