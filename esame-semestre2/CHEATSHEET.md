@@ -10,7 +10,8 @@ Il giorno dell'esame avrete **solo questo foglio**. Del semestre 1 qui sotto c'�
 import pytest
 
 def test_errore_atteso():
-    with pytest.raises(ValueError):          # il test è verde solo se dentro il blocco parte ValueError
+    # il test è verde solo se dentro il blocco parte ValueError
+    with pytest.raises(ValueError):
         funzione_da_testare(-10)
 ```
 
@@ -57,6 +58,8 @@ risposta.elapsed.total_seconds()     # quanto ci ha messo
 isinstance(valore, int)        # True se è un intero
 isinstance(valore, str)        # True se è una stringa
 isinstance(valore, list)       # True se è una lista
+len(lista) > 0                 # True se la lista non è vuota
+len(lista) == 1                # True se contiene esattamente un elemento
 "chiave" in dizionario         # True se la chiave esiste
 ```
 
@@ -68,9 +71,11 @@ from jsonschema import validate
 SCHEMA = {
     "type": "object",
     "properties": {"id": {"type": "integer"}, "nome": {"type": "string"}},
-    "required": ["id", "nome"],
+    "required": ["id", "nome"],          # i campi che devono esserci
+    "additionalProperties": False,       # nessun campo in più oltre a quelli elencati
 }
-validate(instance=risposta.json(), schema=SCHEMA)   # se non è conforme -> eccezione -> test rosso
+# se non è conforme -> eccezione -> test rosso
+validate(instance=risposta.json(), schema=SCHEMA)
 ```
 
 ## 2. PYTEST: FIXTURE E CONFTEST.PY
@@ -88,12 +93,14 @@ def nome_fixture():
 def seconda(nome_fixture):           # una fixture può chiederne un'altra per nome
     return nome_fixture + "!"
 
-@pytest.fixture(autouse=True)        # eseguita prima di ogni test, anche se nessuno la chiede
+# eseguita prima di ogni test, anche se nessuno la chiede
+@pytest.fixture(autouse=True)
 def prima_di_ogni_test():
     ...
 
 
-def test_esempio(seconda):           # il test dichiara di cosa ha bisogno: pytest fa il resto
+# il test dichiara di cosa ha bisogno: pytest fa il resto
+def test_esempio(seconda):
     assert seconda == "valore!"
 ```
 
@@ -127,9 +134,12 @@ def test_con_mock(mock_oggetto):
 
 ```python
 finto = MagicMock()
-finto.status_code = 200                                   # attributo
-finto.json.return_value = {"chiave": "valore"}            # metodo json() che restituisce un dict
-finto.metodo.side_effect = RuntimeError("esplodo")        # metodo che solleva un'eccezione
+# attributo
+finto.status_code = 200
+# metodo json() che restituisce un dict
+finto.json.return_value = {"chiave": "valore"}
+# metodo che solleva un'eccezione
+finto.metodo.side_effect = RuntimeError("esplodo")
 ```
 
 **Una risposta finta che contiene un errore** (la chiamata riesce, è la risposta a dire che qualcosa è andato storto):
@@ -137,8 +147,10 @@ finto.metodo.side_effect = RuntimeError("esplodo")        # metodo che solleva u
 ```python
 risposta_finta = MagicMock()
 risposta_finta.status_code = 500
-risposta_finta.raise_for_status.side_effect = requests.HTTPError("500")   # raise_for_status() esplode
-mock_oggetto.return_value = risposta_finta                                # la chiamata restituisce la risposta
+# raise_for_status() esplode
+risposta_finta.raise_for_status.side_effect = requests.HTTPError("500")
+# la chiamata restituisce la risposta
+mock_oggetto.return_value = risposta_finta
 ```
 
 **Eccezioni della libreria requests** (tutte figlie di `requests.RequestException`):
@@ -146,7 +158,8 @@ mock_oggetto.return_value = risposta_finta                                # la c
 ```python
 requests.Timeout          # il server non ha risposto entro il timeout
 requests.ConnectionError  # il server non è raggiungibile
-requests.HTTPError        # sollevata da risposta.raise_for_status() se lo status è >= 400
+# sollevata da risposta.raise_for_status() se lo status è >= 400
+requests.HTTPError
 ```
 
 **Matrice + eccezioni (ripasso):**
@@ -160,7 +173,8 @@ def test_matrice(ingresso, atteso):
     assert converti(ingresso) == atteso
 
 
-@pytest.mark.parametrize("errore", [ValueError("a"), KeyError("b")])   # una matrice di eccezioni
+# una matrice di eccezioni
+@pytest.mark.parametrize("errore", [ValueError("a"), KeyError("b")])
 def test_matrice_di_errori(errore):
     ...
 ```
